@@ -1,3 +1,5 @@
+const { Router } = require("express");
+const router = Router();
 const datos = [
     ['Almería', 'Hombres', 21, 2021, 13.2, 38.30],
     ['Almería', 'Hombres', 31, 2021, 40.1, 90.6],
@@ -26,3 +28,7 @@ const datos = [
           
           return media;
         }
+        router.get("/samples/njo", (request, response) => {
+          response.json(calcularMediaNJO(valores,4));
+          console.log("New request"); });
+          module.exports = router;
