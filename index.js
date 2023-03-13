@@ -56,6 +56,26 @@ app.get(BASE_API_URL+"/badea/loadInitialData", (request, response) => {
 
 app.post(BASE_API_URL+"/badea", (request, response) => {
     var newFact = request.body;
+    const existingObject = alaAPI.find(item => item.Province === newFact.Province && item.Month === 
+     newFact.Moth && item.immigrant === newFact.immigrant && item.emigrant === newFact.emigrant);
+      if (existingObject) {
+        response.status(409).send(`El objeto con provincia $ newFact.province}, género $ newFact.gender}, edad $ newFact.age} y período $ newFact.period} ya existe.`);
+      }
+  
+  else{
+    console.log(`newFact = ${JSON.stringify(newFact, null, 2)}`);
+  
+    console.log("New POST request to /badea");  
+    
+    alaAPI.push(newFact);
+    response.json(alaAPI);
+    response.sendStatus(201);}
+  
+  });
+
+
+app.post(BASE_API_URL+"/badea", (request, response) => {
+    var newFact = request.body;
 
 
     console.log(`newFact = ${JSON.stringify(newFact, null, 2)}`);
@@ -67,6 +87,26 @@ app.post(BASE_API_URL+"/badea", (request, response) => {
     response.sendStatus(201);
 
 });
+
+app.post(BASE_API_URL+"/badea/loadInitialData", (request, response) => {
+    var newFact = request.body;
+    const existingObject = alaVacia.find(item => item.Province === newFact.Province && item.Month === 
+     newFact.Moth && item.immigrant === newFact.immigrant && item.emigrant === newFact.emigrant);
+      if (existingObject) {
+        response.status(409).send(`El objeto con provincia $ newFact.Province}, mes $ newFact.Month}, immigrant $ newFact.immigrant} y emigrant $ newFact.emigrant} ya existe.`);
+      }
+  
+  else{
+    console.log(`newFact = ${JSON.stringify(newFact, null, 2)}`);
+  
+    console.log("New POST request to /badea/loadInitialData");  
+    
+    alaVacia.push(newFact);
+    response.json(alaVacia);
+    response.sendStatus(201);}
+  
+  });
+
 
 app.post(BASE_API_URL+"/badea/loadInitialData", (request, response) => {
     var newFact2 = request.body;
@@ -81,6 +121,45 @@ app.post(BASE_API_URL+"/badea/loadInitialData", (request, response) => {
     response.sendStatus(201);
 
 });
+
+app.put(BASE_API_URL+"/badea", (request, response) => {
+    var newFact = request.body;
+  
+  
+    console.log(`newFact = ${JSON.stringify(newFact, null, 2)}`);
+  
+    console.log("No authorized method");  
+  
+    
+  
+    response.sendStatus(405);
+  
+  });
+
+  
+  app.delete("/api/v1/badea/:Month", (req, res) => {
+    const monthToDelete = req.params.Month;
+    alaAPI = alaAPI.filter(item => item.Month !== monthToDelete);
+    res.json(alaAPI);
+    res.send(`El objeto con provincia ${monthToDelete} ha sido eliminado.`);
+  });
+  
+  app.put("/api/v1/badea/:immigrant", (req, res) => {
+    const immigrant = req.params.immigrant;
+    const newData = req.body; // datos nuevos a actualizar
+    const updatedArray = alaAPI.map(obj => obj.immigrant === parseInt(immigrant) ? {...obj, ...newData} : obj);
+    alaAPI = updatedArray;
+    res.json(alaAPI);
+    res.send("Objeto actualizado exitosamente");
+  });
+  app.post("/api/v1/badea/:immigrant", (req, res) => {
+    const immigrant = req.params.immigrant;
+    const newData = req.body; // datos nuevos a actualizar
+    res.sendStatus(405);
+    console.log("No authorized method");
+  });
+
+
 //Aqui termina la api con mi el Array de Adrian
 
 

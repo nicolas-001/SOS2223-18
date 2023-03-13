@@ -1,7 +1,7 @@
 
 const { Router } = require("express");
 const router = Router();
-const _ = require("underscore");
+//const _ = require("underscore");
 const datos = [
     ["Almería", "Hombres", 21, 2021, 13.2, 38.30],
     ["Almería", "Hombres", 31, 2021, 40.1, 90.6],
