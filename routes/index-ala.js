@@ -1,5 +1,9 @@
-const { Router } = require("express");
+const { Router,response } = require("express");
 const router = Router();
+
+var Datastore = require('nedb');
+var db= new Datastore();
+
 var immigrant = new Array();
 immigrant=[2.930,3.111,4.014,3.403,3.167,3.486,3.134,3.058,4.473,4.329];
 
@@ -106,6 +110,9 @@ router.get("/samples/ala", (request, response) => {
               
           const BASE_API_URL = "/api/v1"
 
+    db.insert(data);
+    console.log("New GET to /contacts")
+
 
 var alaAPI = [
     {
@@ -135,6 +142,48 @@ var alaAPI = [
         "immigrant": 3403,
         "emigrant": 2815,
         "total": 6218
+    },
+    {
+        "Province": "Almeria",
+        "Month": "Mayo",
+        "immigrant": 3167,
+        "emigrant": 2738,
+        "total": 5905
+    },
+    {
+        "Province": "Almeria",
+        "Month": "Junio",
+        "immigrant": 3486,
+        "emigrant": 3142,
+        "total": 6628
+    },
+    {
+        "Province": "Almeria",
+        "Month": "Julio",
+        "immigrant": 3134,
+        "emigrant": 3375,
+        "total": 6509
+    },
+    {
+        "Province": "Almeria",
+        "Month": "Agosto",
+        "immigrant": 3058,
+        "emigrant": 2087,
+        "total": 5145
+    },
+    {
+        "Province": "Almeria",
+        "Month": "Septiembre",
+        "immigrant": 4473,
+        "emigrant": 4074,
+        "total": 8547
+    },
+    {
+        "Province": "Almeria",
+        "Month": "Octubre",
+        "immigrant": 4329,
+        "emigrant": 3836,
+        "total": 8165
     }
     
 ];
@@ -163,7 +212,7 @@ router.get(BASE_API_URL+"/residential-variations-stats/loadInitialData", (reques
   router.post(BASE_API_URL+"/residential-variations-stats", (request, response) => {
     var newFact = request.body;
     const existingObject = alaAPI.find(item => item.Province === newFact.Province && item.Month === 
-     newFact.Month && item.immigrant === newFact.immigrant && item.emigrant === newFact.emigrant);
+     newFact.Month && item.immigrant === newFact.immigrant && item.emigrant === newFact.emigrant && item.total == newFact.total);
       if (existingObject) {
         response.status(409).send(`El objeto con provincia $ newFact.Province}, mes $ newFact.Month}, numero de immigrantes $ newFact.immigrant} y numero de emigrantes $ newFact.emigrant} ya existe.`);
       }
