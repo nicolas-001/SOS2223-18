@@ -2,8 +2,19 @@ var express = require("express");
 var cool = require("cool-ascii-faces");
 var app = express();
 var bodyParser = require("body-parser");
-var port = process.env.PORT || 3000
+
+var Datastore = require('nedb');
+var db= new Datastore();
+
+var port = process.env.PORT || 3000;
+
+app.use("/", express.static("./public"));
+
 app.use(bodyParser.json());
+
+
+
+
 /*
 //Aqui empieza la api con mi el Array de Adrian
 var alaAPI = [
