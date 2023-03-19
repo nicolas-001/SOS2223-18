@@ -4,7 +4,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var port = process.env.PORT || 3000
 app.use(bodyParser.json());
-
+/*
 //Aqui empieza la api con mi el Array de Adrian
 var alaAPI = [
     {
@@ -132,7 +132,7 @@ app.put(BASE_API_URL+"/badea", (request, response) => {
   
     
   
-    response.sendStatus(405);
+    response.sendStatus(400);
   
   });
 
@@ -161,6 +161,7 @@ app.put(BASE_API_URL+"/badea", (request, response) => {
 
 
 //Aqui termina la api con mi el Array de Adrian
+*/
 
 
 //Ruta para caras ascii
