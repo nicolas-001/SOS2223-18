@@ -91,9 +91,9 @@ module.exports = (app) =>{
 
 //redireccionar
 
-//app.get(BASE_API_URL+'/residential-variations-stats/docs', (req, res) => {
-//  res.redirect('');
-//});
+app.get(BASE_API_URL+'/residential-variations-stats/docs', (req, res) => {
+  res.redirect('https://documenter.getpostman.com/view/26037869/2s93RL2GnH');
+});
 
 
 //ruta api
@@ -160,7 +160,7 @@ module.exports = (app) =>{
                       delete c._id;
                       return c;
                   }));
-              }else if(Province && Month && immigrant && immigrant && total){
+              }else if(Province && Month && immigrant && emigrant && total){
                   const filtradas = residentialVariationsStats.filter(r => r.Province == Province && r.Month == Month && r.immigrant >= immigrant
                       && r.emigrant >= emigrant && r.total >= total);
                   console.log("Nuevo GET en /residential-variations-stats con provincia, mes, immigrante, emigrante y total");  
