@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "a3d23424-7326-447b-86d0-88b783355959",
+		"name": "Collection residential-variations-stats",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26037869"
+	},
+	"item": [
+		{
+			"name": "/residential-variations-stats/loadInitialData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats/loadInitialData",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats?Month=\"Enero\"",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats?Month=\"Enero\"",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats"
+					],
+					"query": [
+						{
+							"key": "Month",
+							"value": "\"Enero\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats/Almeria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats/Almeria",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats",
+						"Almeria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats/Almeria/Enero",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats/Almeria/Enero",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats",
+						"Almeria",
+						"Enero"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats?from=Enero&to=Marzo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats?from=Enero&to=Febrero",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "Enero"
+						},
+						{
+							"key": "to",
+							"value": "Febrero"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"Province\": \"Sevilla\",\r\n        \"Month\": \"Noviembre\",\r\n        \"immigrant\": 6454,\r\n        \"emigrant\": 5345,\r\n        \"total\": 4524\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats/Almeria (error 405)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"Province\": \"Almeria\",\r\n        \"Month\": \"Noviembre\",\r\n        \"immigrant\": 6454,\r\n        \"emigrant\": 5345,\r\n        \"total\": 4524\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats/Almeria",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats",
+						"Almeria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats/Almeria",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"Province\": \"Sevilla\",\r\n        \"Month\": \"Noviembre\",\r\n        \"immigrant\": 6454,\r\n        \"emigrant\": 5345,\r\n        \"total\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats/Sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats (error 405)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"Province\": \"Almeria\",\r\n        \"Month\": \"Diciembre\",\r\n        \"immigrant\": 6454,\r\n        \"emigrant\": 5345,\r\n        \"total\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats/Sevilla",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats/Sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/residential-variations-stats (completo)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/residential-variations-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"residential-variations-stats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
