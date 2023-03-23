@@ -1,11 +1,12 @@
 {
   "name": "sos2223-18",
   "version": "1.0.0",
-  "description": "hello",
+  "description": "Modulo nodejs del grupo 18",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index"
+    "start": "node index",
+    "test-residential-variations-stats": "npx newman run ./tests/Backend_ala.json -e ./tests/env/gcloud_ala.json",
+    "test": "npm run test-residential-variations-stats"
   },
   "repository": {
     "type": "git",
