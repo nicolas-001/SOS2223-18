@@ -272,183 +272,459 @@ module.exports = (app) =>{
                     delete c._id;
                     return c;
                 }));
-              }else if(Province && immigrant && total){
-                  const filtradas = residentialVariationsStats.filter(r => r.Province == Province && r.immigrant >= immigrant &&
-                      r.total >= total);
-                  console.log("Nuevo GET en /residential-variations-stats con provincia, immigrante y total");  
+              }else if(province && place && visitor_center && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.place >= place
+                    && r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, lugar, centros de visitantes y ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(month && place && visitor_center && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month && r.place >= place
+                    && r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes, lugar, centros de visitantes y ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && month && place && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.month == month && r.place >= place
+                    && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, mes, lugar y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && month && visitor_center && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.month == month
+                    && r.visitor_center >= visitor_center && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, mes, centros de visitantes y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && place && visitor_center && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.place >= place
+                    && r.visitor_center >= visitor_center && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, lugar, centros de visitantes y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(month && place && visitor_center && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month && r.place >= place
+                    && r.visitor_center >= visitor_center && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes, lugar, centros de visitantes y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && month && ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.month == month 
+                    && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, mes, ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && place && ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.place >= place
+                    && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, lugar, ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(month && place && ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month && r.place >= place
+                    && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes, lugar, ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && visitor_center && ecomuseum && information_point){
+                  const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province
+                      && r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                  console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, centros de visitantes, ecomuseos y puntos de informacion");  
                   response.status(200);
                   response.json(filtradas.map((c)=>{
                       delete c._id;
                       return c;
                   }));
-              }else if(Month && immigrant && emigrant){
-                  const filtradas = residentialVariationsStats.filter(r => r.Month == Month && r.immigrant >= immigrant &&
-                      r.emigrant >= emigrant);
-                  console.log("Nuevo GET en /residential-variations-stats con mes, immigrante y emigrante");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Month && immigrant && total){
-                  const filtradas = residentialVariationsStats.filter(r => r.Month == Month && r.immigrant >= immigrant &&
-                      r.total >= total);
-                  console.log("Nuevo GET en /residential-variations-stats con mes, immigrante y total");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Month && emigrant && total){
-                  const filtradas = residentialVariationsStats.filter(r => r.Month == Month && r.emigrant >= emigrant &&
-                      r.total >= total);
-                  console.log("Nuevo GET en /residential-variations-stats con mes, emigrante y total");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(immigrant && emigrant && total){
-                  const filtradas = residentialVariationsStats.filter(r => r.immigrant >= immigrant && r.emigrant >= emigrant
-                      && r.total >= total);
-                  console.log("Nuevo GET en /residential-variations-stats con immigrante, emigrante y total");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Province && Month){
-                  const filtradas = residentialVariationsStats.filter(r => r.Province == Province && r.Month == Month);
-                  console.log("Nuevo GET en /residential-variations-stats con provincia y mes");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Month && immigrant && emigrant && total){
-                  const filtradas = residentialVariationsStats.filter(r => r.Month == Month && r.immigrant >= immigrant && r.emigrant >= emigrant
-                      && r.total >= total);
-                  console.log("Nuevo GET en /residential-variations-stats con mes, immigrante, emigrante y total");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Province && immigrant){
-                  const filtradas = residentialVariationsStats.filter(r => r.Province == Province && r.immigrant == immigrant);
-                  console.log("Nuevo GET en /residential-variations-stats con provincia y immigrante");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Province && emigrant){
-                  const filtradas = residentialVariationsStats.filter(r => r.Province == Province && r.emigrant == emigrant);
-                  console.log("Nuevo GET en /residential-variations-stats con provincia y emigrante");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Province && total){
-                  const filtradas = residentialVariationsStats.filter(r => r.Province == Province && r.total == total);
-                  console.log("Nuevo GET en /residential-variations-stats con provincia y total");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Month && immigrant){
-                  const filtradas = residentialVariationsStats.filter(r => r.Month == Month && r.immigrant == immigrant);
-                  console.log("Nuevo GET en /residential-variations-stats con mes y immigrante");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Month && emigrant){
-                  const filtradas = residentialVariationsStats.filter(r => r.Month == Month && r.emigrant == emigrant);
-                  console.log("Nuevo GET en /residential-variations-stats con mes y emigrante");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(Month && total){
-                  const filtradas = residentialVariationsStats.filter(r => r.Month == Month && r.total == total);
-                  console.log("Nuevo GET en /residential-variations-stats con mes y total");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(immigrant && emigrant){
-                  const filtradas = residentialVariationsStats.filter(r => r.immigrant == immigrant && r.emigrant == emigrant);
-                  console.log("Nuevo GET en /residential-variations-stats con immigrante y emigrante");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(immigrant && total){
-                  const filtradas = residentialVariationsStats.filter(r => r.immigrant == immigrant && r.total == total);
-                  console.log("Nuevo GET en /residential-variations-stats con immigrante y emigrante");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(emigrant && total){
-                  const filtradas = residentialVariationsStats.filter(r => r.emigrant == emigrant && r.total == total);
-                  console.log("Nuevo GET en /residential-variations-stats con emigrante y total");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if (Month) {
-                  const filtradas = residentialVariationsStats.filter(r => r.Month === parseInt(Month));
-                  console.log("Nuevo GET en /residential-variations-stats con mes");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-                  
-              } else if(Province){
-                  const filtradas = residentialVariationsStats.filter(r => r.Province === Province);
-                  console.log("Nuevo GET en /residential-variations-stats con provincia");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(immigrant){
-                  const filtradas = residentialVariationsStats.filter(r => r.immigrant == immigrant);
-                  console.log("Nuevo GET en /residential-variations-stats con immigrante");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(emigrant){
-                  const filtradas = residentialVariationsStats.filter(r => r.emigrant == emigrant);
-                  console.log("Nuevo GET en /residential-variations-stats con emigrante");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else if(total){
-                  const filtradas = residentialVariationsStats.filter(r => r.total == total);
-                  console.log("Nuevo GET en /residential-variations-stats con total");  
-                  response.status(200);
-                  response.json(filtradas.map((c)=>{
-                      delete c._id;
-                      return c;
-                  }));
-              }else {
-                  console.log("Nuevo GET en /residential-variations-stats"); 
+              }else if(month && visitor_center && ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month
+                    && r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes, centros de visitantes, ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(place && visitor_center && ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.place >= place
+                    && r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, mes, lugar, centros de visitantes, ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && month && place){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.month == month && r.place >= place);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, mes y lugar");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && month && visitor_center){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.month == month &&
+                     r.visitor_center >= visitor_center);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, mes y centros de visitantes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && place && visitor_center){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.place >= place
+                    && r.visitor_center >= visitor_center);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, lugar y centros de visitantes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(month && place && visitor_center){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month && r.place >= place
+                    && r.visitor_center >= visitor_center);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes, lugar y centros de visitantes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && month && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.month == month
+                     && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, mes, ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && place && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.place >= place
+                    && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, lugar y ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && visitor_center && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province
+                    && r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, centros de visitantes y ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(month && visitor_center && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month
+                    && r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes centros de visitantes, ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(place && visitor_center && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.place >= place
+                    && r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con lugar, centros de visitantes y ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+              }else if(province && month && place && visitor_center && ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.month == month && r.place >= place
+                    && r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, mes, lugar, centros de visitantes, ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && month && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.month == month && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, mes y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && place && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.place >= place
+                     && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, lugar y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(month && place && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month && r.place >= place
+                    && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con  mes, lugar y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && visitor_center&& information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province
+                    && r.visitor_center >= visitor_center && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, centros de visitantes y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(month && visitor_center && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month
+                    && r.visitor_center >= visitor_center && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes centros de visitantes y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(place && visitor_center && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.place >= place
+                    && r.visitor_center >= visitor_center && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con  lugar, centros de visitantes y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia, ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(month && ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month
+                && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes, ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(visitor_center && ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r => r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con centros de visitantes, ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.ecomuseum >= ecomuseum && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con ecomuseos y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(visitor_center && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r => r.visitor_center >= visitor_center && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con centros de visitantes y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(place && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.place >= place && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes, lugar y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(month && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia y puntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(visitor_center && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.visitor_center >= visitor_center && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con centros de visitantes y ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(place && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.place >= place && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con lugar y ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(month && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes y ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && ecomuseum){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia y ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(place && visitor_center){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.place >= place
+                    && r.visitor_center >= visitor_center);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con lugar y centros de visitantes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(month && visitor_center){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month
+                    && r.visitor_center >= visitor_center);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes y centros de visitantes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && visitor_center){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province 
+                    && r.visitor_center >= visitor_center);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia y centros de visitantes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(month && place){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month && r.place >= place);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes y lugar");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && place){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.place >= place);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia y lugar");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && month){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province && r.month == month);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia y mes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.province == province);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con provincia");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(month){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.month == month);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con mes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(place){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.place >= place);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con lugar");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(visitor_center){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.visitor_center >= visitor_center);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con centros de visitantes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(ecomuseum && information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.ecomuseum >= ecomuseum);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks con ecomuseos");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(information_point){
+                const filtradas = andalusianStatisticalYearbooks.filter(r =>r.information_point == information_point);
+                console.log("Nuevo GET en /andalusian-statistical-yearbooks conpuntos de informacion");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }
+              
+              
+              
+              
+              else {
+                  console.log("Nuevo GET en /andalusian-statistical-yearbooks"); 
                   response.status(200);
                   response.json(residentialVariationsStats.map((c)=>{
                       delete c._id;
@@ -479,8 +755,8 @@ module.exports = (app) =>{
 };
 
 // GET datos, provincia y from y to
-app.get(BASE_API_URL+"/residential-variations-stats/:Province", (request, response) => {
-  const Province = request.params.Province;
+app.get(BASE_API_URL+"/andalusian-statistical-yearbooks/:province", (request, response) => {
+  const Province = request.params.province;
   const from = request.query.from;
   const to = request.query.to;
   db.find({}, (err, residentialVariationsStats)=>{
@@ -515,8 +791,8 @@ app.get(BASE_API_URL+"/residential-variations-stats/:Province", (request, respon
   });    
 });
 
-// GET datos filtrados por provincia y año
-app.get(BASE_API_URL+"/residential-variations-stats/:Province/:Month", (request,response) => {
+// GET datos filtrados por provincia y mes
+app.get(BASE_API_URL+"/residential-variations-stats/:province/:month", (request,response) => {
   const Province = request.params.Province;
   const Month = request.params.Month;
   db.find({}, (err, residentialVariationsStats)=>{
