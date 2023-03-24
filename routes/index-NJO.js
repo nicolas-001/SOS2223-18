@@ -2,6 +2,8 @@
 var express = require("express");
 const { Router, response } = require("express");
 const router = Router();
+var Datastore = require("nedb");
+var db = new Datastore();
 //const _ = require("underscore");
 const datos = [
     ["Almeria", "Hombres", 21, 2021, 13.2, 38.30],
@@ -24,7 +26,7 @@ const datos = [
         let valores = arrays.map(array => array[posicion]);
           
           
-          let suma = valores.reduce((total, valor) => total + valor, 0);
+          let suma = valores.reduce((age, valor) => age + valor, 0);
           
           
           const media = suma / valores.length;
@@ -79,16 +81,354 @@ array_vacio = [];
  
 //ruta api
 router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, response) => {
-array_vacio=njoAPI; 
-console.log("New GET request to /proyection-populations"); 
-response.status(200).json({message:"OK"});
-
-});
-router.get(BASE_API_URL+"/proyection-populations", (request, response) => {
-  response.json(njoAPI); 
-     
-  console.log("New GET request to /proyection-populations"); 
+  console.log("New GET to /proyection-populations");
+  db.find({}, (err, proyectionPopulations)=>{
+  if(proyectionPopulations.length>0){
+      response.json("Los datos proyection-populations estan cargados.");
+      console.log("Los datos proyection-populations estan cargados.")
+  }else if(err){
+          console.log(`Error geting /proyection-populations/loadInitialData: ${err}`);
+          response.sendStatus(500);
+  }else{
+      db.insert(njoAPI)
+      console.log(`residential-variations-stats returned ${proyectionPopulations.length}`);
+      response.sendStatus(200);
+  }
   });
+  });
+  router.get(BASE_API_URL+"/proyection-populations", (request, response) => {
+    const from = request.query.from;
+    const to = request.query.to;
+    db.find({}, (err, proyectionPopulations)=>{
+        if (from && to && !err) {
+            const provinciasAño = proyectionPopulations.filter(x => {return x.period >= from && x.period <= to}); 
+            if (from >= to) {
+                response.status(400).json("El rango de meses especificado es inválido");
+            
+            }else{
+                response.status(200);
+                response.json(provinciasAño.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+                console.log(`/GET en /residential-variations-stats?from=${from}&to=${to}`); 
+            }
+        }else if(!err){
+            const province = request.query.province;
+            const period = request.query.period;
+            const asset_thousand = request.query.asset_thousand;
+            const tax = request.query.tax;
+            const age = request.query.age;
+            const gender = request.query.gender;
+            const limit = request.query.limit;
+            const offset = request.query.offset;
+            
+            if(limit && offset){ 
+                const filtradas = pagination(request,proyectionPopulations);
+                console.log("Nuevo GET en /residential-variations-stats con paginación");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                delete c._id;
+                return c;
+                }));
+            }else if(province && period){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period);
+                console.log("Nuevo GET en /residential-variations-stats con provincia y mes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && period && asset_thousand && tax && age){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.asset_thousand >= asset_thousand
+                    && r.tax >= tax && r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, mes, asset_thousande, taxe y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && period && asset_thousand && tax){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.asset_thousand >= asset_thousand
+                    && r.tax >= tax);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, mes, asset_thousande y taxe");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && period && asset_thousand && age){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.asset_thousand >= asset_thousand
+                  && r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, mes, asset_thousande y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && period && tax && age){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.tax >= tax
+                  && r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, mes, taxe y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && asset_thousand && tax && age){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.asset_thousand >= asset_thousand && 
+                    r.tax >= tax && r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, asset_thousande, taxe y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && period && asset_thousand){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.asset_thousand >= asset_thousand);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, mes y asset_thousande");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && period && tax){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.tax >= tax);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, mes y tax");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && period && age){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, mes y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && asset_thousand && tax){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.asset_thousand >= asset_thousand && 
+                    r.tax >= tax);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, asset_thousande y taxe");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && tax && age){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.tax >= tax && 
+                    r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, taxe y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && asset_thousand && age){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.asset_thousand >= asset_thousand &&
+                    r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con provincia, asset_thousande y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(period && asset_thousand && tax){
+                const filtradas = proyectionPopulations.filter(r => r.period == period && r.asset_thousand >= asset_thousand &&
+                    r.tax >= tax);
+                console.log("Nuevo GET en /residential-variations-stats con mes, asset_thousande y taxe");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(period && asset_thousand && age){
+                const filtradas = proyectionPopulations.filter(r => r.period == period && r.asset_thousand >= asset_thousand &&
+                    r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con mes, asset_thousande y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(period && tax && age){
+                const filtradas = proyectionPopulations.filter(r => r.period == period && r.tax >= tax &&
+                    r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con mes, taxe y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(asset_thousand && tax && age){
+                const filtradas = proyectionPopulations.filter(r => r.asset_thousand >= asset_thousand && r.tax >= tax
+                    && r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con asset_thousande, taxe y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && period){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period);
+                console.log("Nuevo GET en /residential-variations-stats con provincia y mes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(period && asset_thousand && tax && age){
+                const filtradas = proyectionPopulations.filter(r => r.period == period && r.asset_thousand >= asset_thousand && r.tax >= tax
+                    && r.age >= age);
+                console.log("Nuevo GET en /residential-variations-stats con mes, asset_thousande, taxe y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && asset_thousand){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.asset_thousand == asset_thousand);
+                console.log("Nuevo GET en /residential-variations-stats con provincia y asset_thousande");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && tax){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.tax == tax);
+                console.log("Nuevo GET en /residential-variations-stats con provincia y taxe");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(province && age){
+                const filtradas = proyectionPopulations.filter(r => r.province == province && r.age == age);
+                console.log("Nuevo GET en /residential-variations-stats con provincia y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(period && asset_thousand){
+                const filtradas = proyectionPopulations.filter(r => r.period == period && r.asset_thousand == asset_thousand);
+                console.log("Nuevo GET en /residential-variations-stats con mes y asset_thousande");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(period && tax){
+                const filtradas = proyectionPopulations.filter(r => r.period == period && r.tax == tax);
+                console.log("Nuevo GET en /residential-variations-stats con mes y taxe");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(period && age){
+                const filtradas = proyectionPopulations.filter(r => r.period == period && r.age == age);
+                console.log("Nuevo GET en /residential-variations-stats con mes y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(asset_thousand && tax){
+                const filtradas = proyectionPopulations.filter(r => r.asset_thousand == asset_thousand && r.tax == tax);
+                console.log("Nuevo GET en /residential-variations-stats con asset_thousande y taxe");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(asset_thousand && age){
+                const filtradas = proyectionPopulations.filter(r => r.asset_thousand == asset_thousand && r.age == age);
+                console.log("Nuevo GET en /residential-variations-stats con asset_thousande y taxe");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(tax && age){
+                const filtradas = proyectionPopulations.filter(r => r.tax == tax && r.age == age);
+                console.log("Nuevo GET en /residential-variations-stats con taxe y age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if (period) {
+                const filtradas = proyectionPopulations.filter(r => r.period === parseInt(period));
+                console.log("Nuevo GET en /residential-variations-stats con mes");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+                
+            } else if(province){
+                const filtradas = proyectionPopulations.filter(r => r.province === province);
+                console.log("Nuevo GET en /residential-variations-stats con provincia");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(asset_thousand){
+                const filtradas = proyectionPopulations.filter(r => r.asset_thousand == asset_thousand);
+                console.log("Nuevo GET en /residential-variations-stats con asset_thousande");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(tax){
+                const filtradas = proyectionPopulations.filter(r => r.tax == tax);
+                console.log("Nuevo GET en /residential-variations-stats con taxe");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else if(age){
+                const filtradas = proyectionPopulations.filter(r => r.age == age);
+                console.log("Nuevo GET en /residential-variations-stats con age");  
+                response.status(200);
+                response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }else {
+                console.log("Nuevo GET en /residential-variations-stats"); 
+                response.status(200);
+                response.json(proyectionPopulations.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }  
+        }else{
+            console.log("Error al dar los datos");
+            response.sendStatus(500);
+        }
+    });
+    console.log("GET con los datos");
+});
+function pagination(request, lista){
+  var res = [];
+  const limit = request.query.limit;
+  const offset = request.query.offset;
+  
+  if(limit < 1 || offset < 0 || offset > lista.length){
+      res.push("Hay un error en los parametros offset y limit");
+      return res;
+  }else{
+  res = lista.slice(offset,parseInt(limit)+parseInt(offset));
+  return res;
+  }     
+};
   
 
 
@@ -175,34 +515,4 @@ router.post("/api/v1/proyection-populations/:age", (req, res) => {
   const newData = req.body; // datos nuevos a actualizar
   res.sendStatus(405);
   console.log("No authorized method");
-});
-router.get('/api/v1/proyection-populations/:age/:province', (req, res) => {
-  // Obtener los parámetros de la URL
-  const { age, province } = req.params;
-
-  // Buscar el objeto en la colección que tenga los valores de propiedad correspondientes
-  const result = njoAPI.find(item => item.age === +age && item.province === province);
-
-  // Si se encuentra el objeto, devolverlo en la respuesta
-  if (result) {
-    return res.json(result);
-  }
-
-  // Si no se encuentra el objeto, devolver un error 404
-  return res.status(404).json({ message: 'No se puede encontrar el objeto solicitado.' });
-});
-router.get('/api/v1/proyection-populations/:province', (req, res) => {
-  // Obtener el valor del parámetro "age" de la URL
-  const { province } = req.params;
-
-  // Filtrar los objetos en la colección que tengan el valor de propiedad correspondiente
-  const filteredItems = njoAPI.filter(item => item.province === province);
-
-  // Si se encuentran objetos que cumplan la condición, devolverlos en la respuesta
-  if (filteredItems.length > 0) {
-    return res.json(filteredItems);
-  }
-
-  // Si no se encuentra ningún objeto que cumpla la condición, devolver un error 404
-  return res.status(404).json({ message: 'No se puede encontrar ningún objeto que cumpla la condición.' });
 });

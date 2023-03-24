@@ -10,6 +10,7 @@ var port = process.env.PORT || 3000;
 
 
 var routeALA = require("./routes/index-ala");
+var routeARM = require("./routes/index-arm");
 
 app.use(bodyParser.json());
 app.use("/", express.static("./public"));
@@ -26,9 +27,10 @@ app.get("/cool", (request, response) => {
 //Rutas
 
     app.use(require('./routes/index-NJO')) ;
-    app.use(require('./routes/index-arm')) ;
+    
     
     routeALA(app);
+    routeARM(app);
 
 
     app.listen(port, () => {
