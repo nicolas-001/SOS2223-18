@@ -726,7 +726,7 @@ module.exports = (app) =>{
               else {
                   console.log("Nuevo GET en /andalusian-statistical-yearbooks"); 
                   response.status(200);
-                  response.json(residentialVariationsStats.map((c)=>{
+                  response.json(andalusianStatisticalYearbooks.map((c)=>{
                       delete c._id;
                       return c;
                   }));
@@ -759,20 +759,20 @@ app.get(BASE_API_URL+"/andalusian-statistical-yearbooks/:province", (request, re
   const Province = request.params.province;
   const from = request.query.from;
   const to = request.query.to;
-  db.find({}, (err, residentialVariationsStats)=>{
+  db.find({}, (err, andalusianStatisticalYearbooks)=>{
       if (from && to && !err) {
           if (from > to) {
               response.status(400).json("El rango de meses especificado es inválido");
           } else {
-              const datosFiltrados = residentialVariationsStats.filter(x => x.Province === Province && x.Month >= from && x.Month <= to);
+              const datosFiltrados = andalusianStatisticalYearbooks.filter(x => x.province === province && x.month >= from && x.month <= to);
               response.status(200).json(datosFiltrados.map((c) =>{
                   delete c._id;
                   return c;
               }));
-              console.log(`/GET en /residential-variations-stats/${Province}?from=${from}&to=${to}`);
+              console.log(`/GET en /andalusian-statistical-yearbooks/${province}?from=${from}&to=${to}`);
           }
       }else if(!err){
-          const datosFiltrados = residentialVariationsStats.filter(x => x.Province == Province);
+          const datosFiltrados = andalusianStatisticalYearbooks.filter(x => x.province == province);
           
           if(datosFiltrados.length == 0){
               res.status(404).json('La ruta solicitada no existe');
@@ -781,9 +781,9 @@ app.get(BASE_API_URL+"/andalusian-statistical-yearbooks/:province", (request, re
               delete c._id;
               return c;
           }));
-          console.log(`New GET /residential-variations-stats/${Province}`); 
+          console.log(`New GET /andalusian-statistical-yearbooks/${province}`); 
           }
-          console.log(`Nuevo GET en /residential-variations-stats/${Province}`); 
+          console.log(`Nuevo GET en /andalusian-statistical-yearbooks/${province}`); 
       }else{
           response.sendStatus(500);
           console.log("No se ha podido hacer la busqueda");
@@ -792,12 +792,12 @@ app.get(BASE_API_URL+"/andalusian-statistical-yearbooks/:province", (request, re
 });
 
 // GET datos filtrados por provincia y mes
-app.get(BASE_API_URL+"/residential-variations-stats/:province/:month", (request,response) => {
-  const Province = request.params.Province;
-  const Month = request.params.Month;
-  db.find({}, (err, residentialVariationsStats)=>{
+app.get(BASE_API_URL+"/https://github.com/adrile15/:province/:month", (request,response) => {
+  const Province = request.params.province;
+  const Month = request.params.month;
+  db.find({}, (err, randalusianStatisticalYearbooks)=>{
       if(!err){
-          var filtro = residentialVariationsStats.filter(x => x.Province == Province && x.Month == Month);
+          var filtro = andalusianStatisticalYearbooks.filter(x => x.province == province && x.month == month);
           if (filtro.length == 0) {            
               response.status(404).json('La ruta solicitada no existe');
           } else {
@@ -811,16 +811,17 @@ app.get(BASE_API_URL+"/residential-variations-stats/:province/:month", (request,
           response.sendStatus(500);
       }   
   });
-  console.log("Datos de /residential-variations-stats/:Province/:Month");
+  console.log("Datos de /andalusian-statistical-yearbooks/:province/:month");
 });
 
 // POST nuevo dato, si ya existe -> 409, si el dato no tiene el mismo número de propiedades -> 400
-app.post(BASE_API_URL + "/residential-variations-stats", (request, response) => {
-  const Province = request.body.Province;
-  const Month = request.body.Month;
-  const immigrant = request.body.immigrant;
-  const emigrant = request.body.emigrant;
-  const total = request.body.total;
+app.post(BASE_API_URL + "/andalusian-statistical-yearbooks", (request, response) => {
+  const province = request.body.province;
+  const month = request.body.month;
+  const place = request.body.place;
+  const visitor_center = request.body.visitor_center;
+  const ecomuseum = request.body.ecomuseum;
+  const information_point = request.body.information_point;
 
   db.find({},function(err,filteredList){
 
@@ -829,14 +830,14 @@ app.post(BASE_API_URL + "/residential-variations-stats", (request, response) => 
       }
 
       // Validar que se envíen todos los campos necesarios
-      const requiredFields = ['Province', 'Month', 'immigrant', 'emigrant', 'total'];
+      const requiredFields = ['province', 'month', 'place', 'visitor_center', 'ecomuseum', 'information_point'];
       for (const field of requiredFields) {
           if (!request.body.hasOwnProperty(field)) {
           return response.status(400).json(`Missing required field: ${field}`);
           }
       }
       // Verificar que la solicitud se hizo en la ruta correcta
-      if (request.originalUrl != BASE_API_URL+"/residential-variations-stats") {
+      if (request.originalUrl != BASE_API_URL+"/andalusian-statistical-yearbooks") {
           response.status(405).json('Url no permitida');
       }else{ 
 
@@ -844,8 +845,8 @@ app.post(BASE_API_URL + "/residential-variations-stats", (request, response) => 
           //const existingObject = evolution_stats.find(obj => obj.territory === territory && obj.period === period);
           filteredList = filteredList.filter((obj)=>
                           {
-                              return(Province == obj.Province && Month == obj.Month && immigrant == obj.immigrant &&
-                                  emigrant == obj.emigrant && total == obj.total)
+                              return(Province == obj.province && month == obj.month && place == obj.place &&
+                                  visitor_center == obj.visitor_center && ecomuseum == obj.ecomuseum && information_point == obj.inf)
                           });
           //const existingObject = db.find({territory : NewEvolution.territory, period : NewEvolution.period});
           if (filteredList.length !=0) {
@@ -860,25 +861,25 @@ app.post(BASE_API_URL + "/residential-variations-stats", (request, response) => 
           }
       }
   });
-  console.log("New POST to /residential-variations-stats"); 
+  console.log("New POST to /andalusian-statistical-yearbooks"); 
 });
   
 // POST prohibido -> 405
-app.post(BASE_API_URL+"/residential-variations-stats/:Province", (request, response) =>{
-  console.log("No se puede hacer este POST /residential-variations-stats/:Province");
+app.post(BASE_API_URL+"/andalusian-statistical-yearbooks/:province", (request, response) =>{
+  console.log("No se puede hacer este POST /andalusian-statistical-yearbooks/:province");
   response.sendStatus(405);
 });
-app.post(BASE_API_URL+"/residential-variations-stats/:Province", (request, response) =>{
-  console.log("No se puede hacer este POST /residential-variations-stats/:Province");
+app.post(BASE_API_URL+"/andalusian-statistical-yearbooks/:province", (request, response) =>{
+  console.log("No se puede hacer este POST /andalusian-statistical-yearbooks/:province");
   response.sendStatus(405);
 });
 
 // PUT a 1 o varias provincias -> 200, sino -> 400
-app.put(BASE_API_URL + "/residential-variations-stats/:Province", (request, response) => {
-  const provinceId = request.params.Province;
+app.put(BASE_API_URL + "/andalusian-statistical-yearbooks/:province", (request, response) => {
+  const provinceId = request.params.province;
   const body = request.body;
 
-  db.update({ Province: provinceId }, { $set: { Month: body.Month, immigrant: body.immigrant, emigrant: body.emigrant, total: body.total } }, {}, (err, numAffected) => {
+  db.update({ province: provinceId }, { $set: { month: body.month, place: body.place, visitor_center: body.visitor_center, ecomuseum: body.ecomuseum, information_point: body.information_point } }, {}, (err, numAffected) => {
       if (err) {
           console.log("Error actualizando el objeto: ", err);
           response.status(500).send("Error actualizando el objeto");
@@ -895,25 +896,26 @@ app.put(BASE_API_URL + "/residential-variations-stats/:Province", (request, resp
 // PUT a 1 o varios años -> 200, sino -> 400
 
     // Ruta PUT para actualizar un registro de pollutions en NeDB
-    app.put(BASE_API_URL + "/residential-variations-stats/:Province/:Month", (request, response) => {
-      const provinceId = request.params.Province;
-      const monthId = parseInt(request.params.Month);
+    app.put(BASE_API_URL + "/andalusian-statistical-yearbooks/:province/:month", (request, response) => {
+      const provinceId = request.params.province;
+      const monthId = parseInt(request.params.month);
       const body = request.body;
 
       // Verifica si los valores de año coinciden
-      if (provinceId === body.Province && monthId === body.Month) {
+      if (provinceId === body.province && monthId === body.month) {
           // Actualiza el registro en la base de datos
           db.update(
-              { Province: provinceId, Month: yearId },
+              { province: provinceId, month: yearId },
               { $set: {
-                  immigrant: body.immigrant,
-                  emigrant: body.emigrant,
-                  total: body.total
+                place: body.place,
+                visitor_center: body.visitor_center,
+                ecomuseum: body.ecomuseum,
+                information_point: body.information_point
               }},
               {},
               function (err, numReplaced) {
                   if (numReplaced === 1) {
-                      console.log("Nuevo PUT a /residential-variations-stats/:Province/:Month");
+                      console.log("Nuevo PUT a /https://github.com/antrummor/:province/:month");
                       response.status(200).send("Actualizado");
                   } else {
                       console.log("No se ha encontrado el objeto con la provincia y mes especificados");
@@ -927,12 +929,12 @@ app.put(BASE_API_URL + "/residential-variations-stats/:Province", (request, resp
       }
   });
 
-  app.put(BASE_API_URL+"/residential-variations-stats", (request,response) =>{
-      console.log("No se puede hacer este PUT /residential-variations-stats");
+  app.put(BASE_API_URL+"/andalusian-statistical-yearbooks", (request,response) =>{
+      console.log("No se puede hacer este PUT /andalusian-statistical-yearbooks");
       response.sendStatus(405);
   });
 
-  app.delete(BASE_API_URL+"/residential-variations-stats", (request, response) => {
+  app.delete(BASE_API_URL+"/andalusian-statistical-yearbooks", (request, response) => {
       db.remove({}, {multi : true},(err, numRemoved)=>{
           if(err){
               console.log("Error para borrar todos los datos");
@@ -947,12 +949,12 @@ app.put(BASE_API_URL + "/residential-variations-stats/:Province", (request, resp
           }
       
       });
-      console.log("Se ha borrado /residential-variations-stats");
+      console.log("Se ha borrado /andalusian-statistical-yearbooks");
   });
 
   // DELETE de una provincia -> 204 (borrado), si no se encuentra -> 404
-  app.delete(BASE_API_URL+"/residential-variations-stats/:Province", (request, response) => {
-    const Province = request.params.Province;
+  app.delete(BASE_API_URL+"/andalusian-statistical-yearbooks/:province", (request, response) => {
+    const province = request.params.province;
     db.remove({Province : Province}, {}, (err, numRemoved)=>{
         if(err){
             console.log("Error para borrar todos los datos");
@@ -967,7 +969,7 @@ app.put(BASE_API_URL + "/residential-variations-stats/:Province", (request, resp
         }
     
     });
-    console.log("Se ha borrado la provincia en /residential-variations-stats/:Province");
+    console.log("Se ha borrado la provincia en /andalusian-statistical-yearbooks/:province");
 });
 
 
