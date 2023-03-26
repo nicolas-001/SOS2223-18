@@ -91,7 +91,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
           response.sendStatus(500);
   }else{
       db.insert(njoAPI)
-      console.log(`residential-variations-stats returned ${proyectionPopulations.length}`);
+      console.log(`proyection-populations returned ${proyectionPopulations.length}`);
       response.sendStatus(200);
   }
   });
@@ -111,7 +111,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                     delete c._id;
                     return c;
                 }));
-                console.log(`/GET en /residential-variations-stats?from=${from}&to=${to}`); 
+                console.log(`/GET en /proyection-populations?from=${from}&to=${to}`); 
             }
         }else if(!err){
             const province = request.query.province;
@@ -125,7 +125,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             
             if(limit && offset){ 
                 const filtradas = pagination(request,proyectionPopulations);
-                console.log("Nuevo GET en /residential-variations-stats con paginación");  
+                console.log("Nuevo GET en /proyection-populations con paginación");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                 delete c._id;
@@ -133,7 +133,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(province && period){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period);
-                console.log("Nuevo GET en /residential-variations-stats con provincia y mes");  
+                console.log("Nuevo GET en /proyection-populations con provincia y mes");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -142,7 +142,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(province && period && asset_thousand && tax && age){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.asset_thousand >= asset_thousand
                     && r.tax >= tax && r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, mes, asset_thousande, taxe y age");  
+                console.log("Nuevo GET en /proyection-populations con provincia, mes, asset_thousande, taxe y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -151,7 +151,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(province && period && asset_thousand && tax){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.asset_thousand >= asset_thousand
                     && r.tax >= tax);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, mes, asset_thousande y taxe");  
+                console.log("Nuevo GET en /proyection-populations con provincia, mes, asset_thousande y taxe");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -160,7 +160,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(province && period && asset_thousand && age){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.asset_thousand >= asset_thousand
                   && r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, mes, asset_thousande y age");  
+                console.log("Nuevo GET en /proyection-populations con provincia, mes, asset_thousande y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -169,7 +169,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(province && period && tax && age){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.tax >= tax
                   && r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, mes, taxe y age");  
+                console.log("Nuevo GET en /proyection-populations con provincia, mes, taxe y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -178,7 +178,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(province && asset_thousand && tax && age){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.asset_thousand >= asset_thousand && 
                     r.tax >= tax && r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, asset_thousande, taxe y age");  
+                console.log("Nuevo GET en /proyection-populations con provincia, asset_thousande, taxe y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -186,7 +186,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(province && period && asset_thousand){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.asset_thousand >= asset_thousand);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, mes y asset_thousande");  
+                console.log("Nuevo GET en /proyection-populations con provincia, mes y asset_thousande");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -194,7 +194,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(province && period && tax){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.tax >= tax);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, mes y tax");  
+                console.log("Nuevo GET en /proyection-populations con provincia, mes y tax");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -202,7 +202,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(province && period && age){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period && r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, mes y age");  
+                console.log("Nuevo GET en /proyection-populations con provincia, mes y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -211,7 +211,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(province && asset_thousand && tax){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.asset_thousand >= asset_thousand && 
                     r.tax >= tax);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, asset_thousande y taxe");  
+                console.log("Nuevo GET en /proyection-populations con provincia, asset_thousande y taxe");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -220,7 +220,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(province && tax && age){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.tax >= tax && 
                     r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, taxe y age");  
+                console.log("Nuevo GET en /proyection-populations con provincia, taxe y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -229,7 +229,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(province && asset_thousand && age){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.asset_thousand >= asset_thousand &&
                     r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con provincia, asset_thousande y age");  
+                console.log("Nuevo GET en /proyection-populations con provincia, asset_thousande y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -238,7 +238,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(period && asset_thousand && tax){
                 const filtradas = proyectionPopulations.filter(r => r.period == period && r.asset_thousand >= asset_thousand &&
                     r.tax >= tax);
-                console.log("Nuevo GET en /residential-variations-stats con mes, asset_thousande y taxe");  
+                console.log("Nuevo GET en /proyection-populations con mes, asset_thousande y taxe");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -247,7 +247,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(period && asset_thousand && age){
                 const filtradas = proyectionPopulations.filter(r => r.period == period && r.asset_thousand >= asset_thousand &&
                     r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con mes, asset_thousande y age");  
+                console.log("Nuevo GET en /proyection-populations con mes, asset_thousande y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -256,7 +256,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(period && tax && age){
                 const filtradas = proyectionPopulations.filter(r => r.period == period && r.tax >= tax &&
                     r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con mes, taxe y age");  
+                console.log("Nuevo GET en /proyection-populations con mes, taxe y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -265,7 +265,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(asset_thousand && tax && age){
                 const filtradas = proyectionPopulations.filter(r => r.asset_thousand >= asset_thousand && r.tax >= tax
                     && r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con asset_thousande, taxe y age");  
+                console.log("Nuevo GET en /proyection-populations con asset_thousande, taxe y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -273,7 +273,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(province && period){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.period == period);
-                console.log("Nuevo GET en /residential-variations-stats con provincia y mes");  
+                console.log("Nuevo GET en /proyection-populations con provincia y mes");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -282,7 +282,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
             }else if(period && asset_thousand && tax && age){
                 const filtradas = proyectionPopulations.filter(r => r.period == period && r.asset_thousand >= asset_thousand && r.tax >= tax
                     && r.age >= age);
-                console.log("Nuevo GET en /residential-variations-stats con mes, asset_thousande, taxe y age");  
+                console.log("Nuevo GET en /proyection-populations con mes, asset_thousande, taxe y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -290,7 +290,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(province && asset_thousand){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.asset_thousand == asset_thousand);
-                console.log("Nuevo GET en /residential-variations-stats con provincia y asset_thousande");  
+                console.log("Nuevo GET en /proyection-populations con provincia y asset_thousande");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -298,7 +298,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(province && tax){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.tax == tax);
-                console.log("Nuevo GET en /residential-variations-stats con provincia y taxe");  
+                console.log("Nuevo GET en /proyection-populations con provincia y taxe");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -306,7 +306,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(province && age){
                 const filtradas = proyectionPopulations.filter(r => r.province == province && r.age == age);
-                console.log("Nuevo GET en /residential-variations-stats con provincia y age");  
+                console.log("Nuevo GET en /proyection-populations con provincia y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -314,7 +314,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(period && asset_thousand){
                 const filtradas = proyectionPopulations.filter(r => r.period == period && r.asset_thousand == asset_thousand);
-                console.log("Nuevo GET en /residential-variations-stats con mes y asset_thousande");  
+                console.log("Nuevo GET en /proyection-populations con mes y asset_thousande");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -322,7 +322,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(period && tax){
                 const filtradas = proyectionPopulations.filter(r => r.period == period && r.tax == tax);
-                console.log("Nuevo GET en /residential-variations-stats con mes y taxe");  
+                console.log("Nuevo GET en /proyection-populations con mes y taxe");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -330,7 +330,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(period && age){
                 const filtradas = proyectionPopulations.filter(r => r.period == period && r.age == age);
-                console.log("Nuevo GET en /residential-variations-stats con mes y age");  
+                console.log("Nuevo GET en /proyection-populations con mes y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -338,7 +338,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(asset_thousand && tax){
                 const filtradas = proyectionPopulations.filter(r => r.asset_thousand == asset_thousand && r.tax == tax);
-                console.log("Nuevo GET en /residential-variations-stats con asset_thousande y taxe");  
+                console.log("Nuevo GET en /proyection-populations con asset_thousande y taxe");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -346,7 +346,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(asset_thousand && age){
                 const filtradas = proyectionPopulations.filter(r => r.asset_thousand == asset_thousand && r.age == age);
-                console.log("Nuevo GET en /residential-variations-stats con asset_thousande y taxe");  
+                console.log("Nuevo GET en /proyection-populations con asset_thousande y taxe");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -354,7 +354,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(tax && age){
                 const filtradas = proyectionPopulations.filter(r => r.tax == tax && r.age == age);
-                console.log("Nuevo GET en /residential-variations-stats con taxe y age");  
+                console.log("Nuevo GET en /proyection-populations con taxe y age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -362,7 +362,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if (period) {
                 const filtradas = proyectionPopulations.filter(r => r.period === parseInt(period));
-                console.log("Nuevo GET en /residential-variations-stats con mes");  
+                console.log("Nuevo GET en /proyection-populations con mes");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -371,7 +371,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 
             } else if(province){
                 const filtradas = proyectionPopulations.filter(r => r.province === province);
-                console.log("Nuevo GET en /residential-variations-stats con provincia");  
+                console.log("Nuevo GET en /proyection-populations con provincia");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -379,7 +379,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(asset_thousand){
                 const filtradas = proyectionPopulations.filter(r => r.asset_thousand == asset_thousand);
-                console.log("Nuevo GET en /residential-variations-stats con asset_thousande");  
+                console.log("Nuevo GET en /proyection-populations con asset_thousande");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -387,7 +387,7 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(tax){
                 const filtradas = proyectionPopulations.filter(r => r.tax == tax);
-                console.log("Nuevo GET en /residential-variations-stats con taxe");  
+                console.log("Nuevo GET en /proyection-populations con taxe");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
@@ -395,14 +395,14 @@ router.get(BASE_API_URL+"/proyection-populations/loadInitialData", (request, res
                 }));
             }else if(age){
                 const filtradas = proyectionPopulations.filter(r => r.age == age);
-                console.log("Nuevo GET en /residential-variations-stats con age");  
+                console.log("Nuevo GET en /proyection-populations con age");  
                 response.status(200);
                 response.json(filtradas.map((c)=>{
                     delete c._id;
                     return c;
                 }));
             }else {
-                console.log("Nuevo GET en /residential-variations-stats"); 
+                console.log("Nuevo GET en /proyection-populations"); 
                 response.status(200);
                 response.json(proyectionPopulations.map((c)=>{
                     delete c._id;
@@ -430,89 +430,229 @@ function pagination(request, lista){
   }     
 };
   
+router.get(BASE_API_URL+"/proyection-populations/:province", (request, response) => {
+  const province = request.params.province;
+  const from = request.query.from;
+  const to = request.query.to;
+  db.find({}, (err, proyectionPopulations)=>{
+      if (from && to && !err) {
+          if (from > to) {
+              response.status(400).json("El rango de meses especificado es inválido");
+          } else {
+              const datosFiltrados = proyectionPopulations.filter(x => x.province === province && x.period >= from && x.period <= to);
+              response.status(200).json(datosFiltrados.map((c) =>{
+                  delete c._id;
+                  return c;
+              }));
+              console.log(`/GET en /proyection-populations/${province}?from=${from}&to=${to}`);
+          }
+      }else if(!err){
+          const datosFiltrados = proyectionPopulations.filter(x => x.province == province);
+          
+          if(datosFiltrados.length == 0){
+              response.status(404).json('La ruta solicitada no existe');
+          }else{
+          response.status(200).json(datosFiltrados.map((c)=>{
+              delete c._id;
+              return c;
+          }));
+          console.log(`New GET /proyection-populations/${province}`); 
+          }
+          console.log(`Nuevo GET en /proyection-populations/${province}`); 
+      }else{
+          response.sendStatus(500);
+          console.log("No se ha podido hacer la busqueda");
+      }
+  });    
+});
 
+router.get(BASE_API_URL+"/proyection-populations/:province/:period", (request,response) => {
+  const province = request.params.province;
+  const period = request.params.period;
+  db.find({}, (err, proyectionPopulations)=>{
+      if(!err){
+          var filtro = proyectionPopulations.filter(x => x.province == province && x.period == period);
+          if (filtro.length == 0) {            
+              response.status(404).json('La ruta solicitada no existe');
+          } else {
+              response.status(200).json(filtro.map((c)=>{
+                  delete c._id;
+                  return c;
+              }));
+          }
+      }else{
+          console.log("No se ha podido obtener los datos");
+          response.sendStatus(500);
+      }   
+  });
+  console.log("Datos de /proyection-populations/:province/:period");
+});
 
+router.post(BASE_API_URL + "/proyection-populations", (request, response) => {
+  const province = request.body.province;
+  const period = request.body.period;                   
+  const asset_thousand = request.body.asset_thousand;
+  const tax = request.body.tax;
+  const age = request.body.age;
+  const gender = request.query.gender;
 
-router.post(BASE_API_URL+"/proyection-populations", (request, response) => {
-  var newFact = request.body;
-  const existingObject = njoAPI.find(item => item.province === newFact.province && item.gender === 
-   newFact.gender && item.age === newFact.age && item.period === newFact.period);
-    if (existingObject) {
-      response.status(409).send(`El objeto con provincia $ newFact.province}, género $ newFact.gender}, edad $ newFact.age} y período $ newFact.period} ya existe.`);
+  db.find({},function(err,filteredList){
+
+      if(err){
+          response.sendStatus(500);
+      }
+
+      // Validar que se envíen todos los campos necesarios
+      const requiredFields = ['province', 'period', 'asset_thousand', 'tax', 'age','gender'];
+      for (const field of requiredFields) {
+          if (!request.body.hasOwnProperty(field)) {
+          return response.status(400).json(`Missing required field: ${field}`);
+          }
+      }
+      // Verificar que la solicitud se hizo en la ruta correcta
+      if (request.originalUrl != BASE_API_URL+"/proyection-populations") {
+          response.status(405).json('Url no permitida');
+      }else{ 
+
+          
+          filteredList = filteredList.filter((obj)=>
+                          {
+                              return(province == obj.province && period == obj.period && asset_thousand == obj.asset_thousand &&
+                                  tax == obj.tax && age == obj.age && gender == obj.gender)
+                          });
+          //const existingObject = db.find({territory : NewEvolution.territory, period : NewEvolution.period});
+          if (filteredList.length !=0) {
+              // Si el recurso ya existe, devolver un código de respuesta 409
+              response.status(409).json(`El recurso ya existe.`);
+          } else {
+              // Si el recurso no existe, agregarlo a la lista y devolver un código de respuesta 201
+              db.insert(request.body);
+              //evolution_stats.push(request.body);
+              response.sendStatus(201);
+              console.log("Se ha insertado un nuevo dato");
+          }
+      }
+    });
+    console.log("New POST to /proyection-populations"); 
+  });
+  router.post(BASE_API_URL+"/proyection-populations/:province", (request, response) =>{
+    console.log("No se puede hacer este POST /proyection-populations/:province");
+    response.sendStatus(405);
+  });
+  router.put(BASE_API_URL + "/proyection-populations/:province", (request, response) => {
+    const province = request.params.province;
+    const body = request.body;
+    if (province === body.province) {
+        const requiredFields = ['province', 'period', 'tax', 'asset_thousand', 'gender','age'];
+            for (const field of requiredFields) {
+                if (!request.body.hasOwnProperty(field)) {
+                return response.status(400).json(`Falta alguno de los campos: ${field}`);
+                }
+            }
+    
+        db.update({ province: province }, 
+            { $set: 
+                { period: body.period, 
+                tax: body.tax, 
+                asset_thousand: body.asset_thousand, 
+                gender: body.gender,
+              age: body.age} }, {}, (err, numAffected) => {
+            if (err) {
+                console.log("Error actualizando el objeto: ", err);
+                response.status(500).send("Error actualizando el objeto");
+            } else if (numAffected === 0) {
+                console.log("No se ha encontrado el objeto con la provincia especificada");
+                response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
+            } else {
+                console.log("Nuevo objeto actualizado en la base de datos");
+                response.status(200).send("Actualizado");
+            }
+        });
+    }else {
+        console.log("La provincia en la URL no coincide con la provincia en la solicitud");
+        response.status(400).send("La provincia en la URL no coincide con la provincia en la solicitud");
     }
+});
+router.put(BASE_API_URL + "/proyection-populations/:province/:period", (request, response) => {
+  const provinceId = request.params.province;
+  const periodId = parseInt(request.params.period);
+  const body = request.body;
 
-else{
-  console.log(`newFact = ${JSON.stringify(newFact, null, 2)}`);
+  // Verifica si los valores de año coinciden
+  if (provinceId === body.province && periodId === body.period) {
+      // Actualiza el registro en la base de datos
+      db.update(
+          { province: provinceId, period: periodId },
+          { $set: {
+            period: body.period, 
+            tax: body.tax, 
+            asset_thousand: body.asset_thousand, 
+            gender: body.gender,
+          age: body.age
+          }},
+          {},
+          function (err, numReplaced) {
+              if (numReplaced === 1) {
+                  console.log("Nuevo PUT a /proyection-populations/:province/:period");
+                  response.status(200).send("Actualizado");
+              } else {
+                  console.log("No se ha encontrado el objeto con la provincia y mes especificados");
+                  response.status(400).send("No se ha encontrado el objeto con la provincia y mes especificados");
+              }
+          }
+      );
+  } else {
+      console.log("El mes en la URL no coincide con el mes en la solicitud");
+      response.status(400).send("El mes en la URL no coincide con el mes en la solicitud");
+  }
+});
 
-  console.log("New POST request to /proyection-populations");  
+router.delete(BASE_API_URL+"/proyection-populations/:province", (request, response) => {
+  const province = request.params.province;
+  db.remove({province : province}, {}, (err, numRemoved)=>{
+      if(err){
+          console.log("Error para borrar todos los datos");
+          response.status(500).send("Error");
+
+      }else if(numRemoved === 0){
+          console.log("No se encuentran datos");
+          response.status(400).send("No se encuentran datos");
+      }else{
+          console.log("Borrado el dato");
+          response.status(200).send("Se ha borrado el dato");
+      }
   
-  njoAPI.push(newFact);
-  response.status(201);}
-
+  });
+  console.log("Se ha borrado la provincia en /proyection-populations/:province");
 });
 
-router.post(BASE_API_URL+"/proyection-populations/loadInitialData", (request, response) => {
-  var newFact2 = request.body;
+// DELETE de provincia y año
+router.delete(BASE_API_URL+"/proyection-populations/:province/:period", (request, response) => {
+  const province = request.params.province;
+  const period = request.params.period;
+  db.remove({province : province , period : parseInt(period)}, {}, (err, numRemoved)=>{
+      if(err){
+          console.log("Error para borrar todos los datos");
+          response.status(500).send("Error");
 
-
-  console.log(`newFact = ${JSON.stringify(newFact2, null, 2)}`);
-
-  console.log("New POST request to /proyection-populations/loadInitialData");  
-
-  data.push;(newFact2);
-
-  response.sendStatus(201);
-
+      }else if(numRemoved == 0){
+          console.log("No se encuentran datos");
+          response.status(400).send("No se encuentran datos");
+      }else{
+          console.log("Borrado el dato");
+          response.status(200).send("Se ha borrado el dato");
+      }
+  });
+  console.log("Se ha borrado la provincia en /proyection-populations/:province");
+});
+router.delete(BASE_API_URL+"/proyection-populations/", (req, res) => {
+  db.remove({}, { multi: true }, (err, numRemoved) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(`Se eliminaron ${numRemoved} documentos de la colección.`);
+    }
+  });
 });
 
-router.put(BASE_API_URL+"/proyection-populations", (request, response) => {
-  var newFact = request.body;
 
-
-  console.log(`newFact = ${JSON.stringify(newFact, null, 2)}`);
-
-  console.log("No authorized method");  
-
-  
-
-  response.sendStatus(405);
-
-});
-
-router.delete(BASE_API_URL+"/proyection-populations/:province/:age", (req, res) => {
-  const { province, age } = req.params;
-  populations = njoAPI.filter(p => !(p.province === province && p.age.toString() === age));
-  res.send(populations);
-});
-
-router.delete(BASE_API_URL+"/proyection-populations", (req, res) => {
-  njoAPI = [];
-  res.status(200).json("La colección ha sido eliminada correctamente");
-});
-
-router.put("/api/v1/proyection-populations/:age/:province", (req, res) => {
-  const age = req.params.age;
-  const province = req.params.province;
-  const tax= req.params.tax;
-  const asset = req.params.asset_thousand;
-  const gender = req.params.gender;
-  const period = req.params.period;
-  const newData = req.body; // datos nuevos a actualizar
-// if ( !(age&&tax&&province&&asset&&gender&&period)){
-//response.sendStatus(400).json("Error, no se han pasado todos los parámetros")
- //}
- // if (parseInt(age) !== newData.age || province !== newData.province){
-   // res.status(400).json("El dato pasado en la url no coincide con el del objeto a actualizar")
-  //}
-  //else {
-    const updatedArray = njoAPI.map(obj => obj.age === parseInt(age) && obj.province===province? {...obj, ...newData} : obj);
-  njoAPI = updatedArray;
-  
-  res.send("Objeto actualizado exitosamente");}
-);
-router.post("/api/v1/proyection-populations/:age", (req, res) => {
-  const age = req.params.age;
-  const newData = req.body; // datos nuevos a actualizar
-  res.sendStatus(405);
-  console.log("No authorized method");
-});
