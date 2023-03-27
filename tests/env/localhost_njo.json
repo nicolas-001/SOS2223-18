@@ -1,0 +1,14 @@
+{
+	"id": "2826a2b9-c9a0-4006-9145-e5201cb6de20",
+	"name": "localhost_njo",
+	"values": [
+		{
+			"key": "URL_BASE",
+			"value": "http://localhost:3000",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-03-27T08:43:43.642Z",
+	"_postman_exported_using": "Postman/10.12.8-230325-0944"
+}
