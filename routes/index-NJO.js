@@ -469,12 +469,17 @@ router.get(BASE_API_URL+"/proyection-populations/:province", (request, response)
 router.get(BASE_API_URL+"/proyection-populations/:province/:period", (request,response) => {
   const province = request.params.province;
   const period = request.params.period;
-  db.find({}, (err, proyectionPopulations)=>{
+  db.find({}, (err, list)=>{
       if(!err){
-          var filtro = proyectionPopulations.filter(x => x.province == province && x.period == period);
+          var filtro = list.filter(x => x.province == province && x.period == period);
           if (filtro.length == 0) {            
               response.status(404).json('La ruta solicitada no existe');
-          } else {
+          }else if(filtro.length == 1){
+              filtro.forEach(element => {
+                  delete element._id;
+              });
+              response.status(200).send(JSON.stringify(filtro[0], null, 2));
+          }else {
               response.status(200).json(filtro.map((c)=>{
                   delete c._id;
                   return c;
@@ -490,51 +495,40 @@ router.get(BASE_API_URL+"/proyection-populations/:province/:period", (request,re
 
 router.post(BASE_API_URL + "/proyection-populations", (request, response) => {
   const province = request.body.province;
-  const period = request.body.period;                   
-  const asset_thousand = request.body.asset_thousand;
+  const period = request.body.period;
   const tax = request.body.tax;
+  const asset_thousand = request.body.asset_thousand;
   const age = request.body.age;
-  const gender = request.query.gender;
-
+  const gender = request.body.gender;
   db.find({},function(err,filteredList){
 
       if(err){
           response.sendStatus(500);
       }
-
-      // Validar que se envíen todos los campos necesarios
-      const requiredFields = ['province', 'period', 'asset_thousand', 'tax', 'age','gender'];
+      const requiredFields = ['province', 'period', 'tax', 'asset_thousand', 'age', 'gender'];
       for (const field of requiredFields) {
           if (!request.body.hasOwnProperty(field)) {
-          return response.status(400).json(`Missing required field: ${field}`);
+          return response.status(400).json(`Falta alguno de los campos: ${field}`);
           }
       }
-      // Verificar que la solicitud se hizo en la ruta correcta
-      if (request.originalUrl != BASE_API_URL+"/proyection-populations") {
-          response.status(405).json('Url no permitida');
-      }else{ 
-
-          
+      
           filteredList = filteredList.filter((obj)=>
                           {
-                              return(province == obj.province && period == obj.period && asset_thousand == obj.asset_thousand &&
-                                  tax == obj.tax && age == obj.age && gender == obj.gender)
+                              return(province == obj.province && period == obj.period && tax == obj.tax &&
+                                  asset_thousand == obj.asset_thousand && age == obj.age && gender == obj.gender)
                           });
-          //const existingObject = db.find({territory : NewEvolution.territory, period : NewEvolution.period});
+          
           if (filteredList.length !=0) {
-              // Si el recurso ya existe, devolver un código de respuesta 409
               response.status(409).json(`El recurso ya existe.`);
           } else {
-              // Si el recurso no existe, agregarlo a la lista y devolver un código de respuesta 201
               db.insert(request.body);
-              //evolution_stats.push(request.body);
               response.sendStatus(201);
               console.log("Se ha insertado un nuevo dato");
           }
-      }
-    });
-    console.log("New POST to /proyection-populations"); 
+      
   });
+  console.log("Nuevo POST en /proyection-populations"); 
+});
   router.post(BASE_API_URL+"/proyection-populations/:province", (request, response) =>{
     console.log("No se puede hacer este POST /proyection-populations/:province");
     response.sendStatus(405);
@@ -606,6 +600,10 @@ router.put(BASE_API_URL + "/proyection-populations/:province/:period", (request,
       response.status(400).send("El mes en la URL no coincide con el mes en la solicitud");
   }
 });
+router.put(BASE_API_URL+"/proyection-populations", (request,response) =>{
+  console.log("No se puede hacer este PUT /proyection-populations");
+  response.sendStatus(405);
+});
 
 router.delete(BASE_API_URL+"/proyection-populations/:province", (request, response) => {
   const province = request.params.province;
@@ -655,4 +653,6 @@ router.delete(BASE_API_URL+"/proyection-populations/", (req, res) => {
   });
 });
 
-
+router.get(BASE_API_URL+'/proyection-populations/docs', (req, res) => {
+  res.redirect('https://documenter.getpostman.com/view/26062660/2s93RQSDWT');
+});

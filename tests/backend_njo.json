@@ -1,0 +1,625 @@
+{
+	"info": {
+		"_postman_id": "1c83c47e-b08c-4692-8797-a461ec7abf4c",
+		"name": "api_rest_njo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26062660"
+	},
+	"item": [
+		{
+			"name": "Load",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Mensaje\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"OK\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations/loadInitialData",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Numero de objetos\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(10);\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET para un parametro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Numero de objetos\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(1);\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations/Sevilla",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET para dos parametros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Nombre de la provincia\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.province).to.eql(\"Sevilla\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations/Sevilla/2021",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations",
+						"Sevilla",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Se ha borrado el dato\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations/Almeria/2021",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations",
+						"Almeria",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Numero de objetos\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(9);\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post recurso repetido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"El recurso ya existe\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"Malaga\",\r\n        \"gender\": \"Mujeres\",\r\n        \"age\": 20,\r\n        \"period\": 2021,\r\n        \"asset_thousand\": 11.2,\r\n        \"tax\": 34.1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Numero de objetos\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(9);\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put 2 parametros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"pm.test(\"Mensaje\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Method Not Allowed\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"Almeria\",\r\n        \"gender\": \"Hombres\",\r\n        \"age\": 31,\r\n        \"period\": 202,\r\n        \"asset_thousand\": 0.1,\r\n        \"tax\": 90.6\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post prohibido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"pm.test(\"Mensaje\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Method Not Allowed\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations/Sevilla",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post funciona",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Mensaje\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Created\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"Cordoba\",\r\n        \"gender\": \"Mujeres\",\r\n        \"age\": 20,\r\n        \"period\": 2019,\r\n        \"asset_thousand\": 150.7,\r\n        \"tax\": 51.8\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations/",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put prohibido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is \", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Method Not Allowed\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations/",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put 2 parametro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Respuesta\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Actualizado\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"Cordoba\",\r\n        \"gender\": \"Mujeres\",\r\n        \"age\": 20,\r\n        \"period\": 2019,\r\n        \"asset_thousand\": 80.5,\r\n        \"tax\": 51.8\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations/Cordoba/2019",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations",
+						"Cordoba",
+						"2019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.lengthOf(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations/?period=2019",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations",
+						""
+					],
+					"query": [
+						{
+							"key": "period",
+							"value": "2019"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Paginacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.lengthOf(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations?from=2018&to=2020",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2018"
+						},
+						{
+							"key": "to",
+							"value": "2020"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Mensaje\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Se eliminaron 10 documentos de la colección.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL_BASE}}/api/v1/proyection-populations",
+					"host": [
+						"{{URL_BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"proyection-populations"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
